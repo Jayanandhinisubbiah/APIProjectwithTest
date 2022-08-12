@@ -128,12 +128,19 @@ namespace APIProject.Controllers
             return prod.GetFoodById(id);
         }
         #endregion
+        //[HttpPost]
+        //[Route("AddtoCart")]
+        //public ActionResult<Cart> AddtoCart(int Qnt, int FoodId, int UserId)
+        //{
+        //    Cart C = prod.AddtoCart(Qnt, FoodId, UserId);
+        //    return new JsonResult(C);
+        //}
         [HttpPost]
         [Route("AddtoCart")]
-        public ActionResult<Cart> AddtoCart(int Qnt, int FoodId, int UserId)
+        public ActionResult<Cart> AddtoCart(Cart C)
         {
-            Cart C = prod.AddtoCart(Qnt, FoodId, UserId);
-            return new JsonResult(C);
+            return prod.AddtoCart(C);
+            //return new JsonResult(C);
         }
         //[HttpPost]
         //public ActionResult<Cart> AddtoCart(Cart C)

@@ -9,7 +9,7 @@ namespace APIProject.Provider
         public List<Food> GetAll();
         public Food GetFoodById(int? id);
 
-        public Cart AddtoCart(int Qnt, int FoodId, int UserId);
+        public Cart AddtoCart(Cart C);
         //public Cart AddtoCart(Cart C);
         public List<Cart> GetCartById(int UserId);
         public void ViewCart(int UserId);

@@ -21,36 +21,36 @@ namespace APIProject.Provider
             return U;
         }
         #region
-        public Cart AddtoCart(int Qnt, int FoodId, int UserId)
-        {
-            #region
-            //var F = fd.Food.FirstOrDefault(i => i.FoodId == C.FoodId);
-            //var  U= fd.UserList.FirstOrDefault(i => i.UserId == C.UserId);
-            #endregion
-            Cart C = new Cart();
-            var F = fd.Food.FirstOrDefault(i => i.FoodId == FoodId);
-            var U = fd.UserList.FirstOrDefault(i => i.UserId == UserId);
-
-            C.UserId =UserId;
-            C.FoodId = F.FoodId;
-            C.Qnt = Qnt;
-            fd.Add(C);
-            fd.SaveChanges();
-            return C;
-        }
-
-        //public Cart AddtoCart(Cart C)
+        //public Cart AddtoCart(int Qnt, int FoodId, int UserId)
         //{
-        //    Cart T = new Cart();
-        //    var F = fd.Food.FirstOrDefault(i => i.FoodId == C.FoodId);
-        //    var U = fd.UserList.FirstOrDefault(i => i.UserId == C.UserId);
-        //    T.UserId = U.UserId;
-        //    T.FoodId = F.FoodId;
-        //    T.Qnt = C.Qnt;
-        //    fd.Add(T);
+        //    #region
+        //    //var F = fd.Food.FirstOrDefault(i => i.FoodId == C.FoodId);
+        //    //var  U= fd.UserList.FirstOrDefault(i => i.UserId == C.UserId);
+        //    #endregion
+        //    Cart C = new Cart();
+        //    var F = fd.Food.FirstOrDefault(i => i.FoodId == FoodId);
+        //    var U = fd.UserList.FirstOrDefault(i => i.UserId == UserId);
+
+        //    C.UserId =UserId;
+        //    C.FoodId = F.FoodId;
+        //    C.Qnt = Qnt;
+        //    fd.Add(C);
         //    fd.SaveChanges();
-        //    return T;
+        //    return C;
         //}
+
+        public Cart AddtoCart(Cart C)
+        {
+            Cart T = new Cart();
+            var F = fd.Food.FirstOrDefault(i => i.FoodId == C.FoodId);
+            var U = fd.UserList.FirstOrDefault(i => i.UserId == C.UserId);
+            T.UserId = U.UserId;
+            T.FoodId = F.FoodId;
+            T.Qnt = C.Qnt;
+            fd.Add(T);
+            fd.SaveChanges();
+            return T;
+        }
         #endregion
 
         public OrderMaster Buy(int UserId)
