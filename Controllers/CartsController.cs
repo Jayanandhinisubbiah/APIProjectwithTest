@@ -156,7 +156,7 @@ namespace APIProject.Controllers
 
             return prod.GetCartById(UserId);
         }
-        [HttpPost("viewCart{UserId}")]
+        [HttpGet("{UserId}")]
 
         public IActionResult viewCart(int UserId)
         {
@@ -176,7 +176,7 @@ namespace APIProject.Controllers
             prod.DeleteConfirmed(CartId);
             return NoContent();
         }
-        [HttpPost("EmptyList{UserId}")]
+        [HttpDelete("EmptyList{UserId}")]
         public IActionResult EmptyList(int UserId)
         {
             prod.EmptyList(UserId);
@@ -196,12 +196,13 @@ namespace APIProject.Controllers
 
             return prod.Buy(UserId);
         }
-        [HttpPut("Payment{OrderId}")]
+        //[HttpPut("Payment{OrderId}")]
+        [HttpPut("Payment")]
 
-        public IActionResult Payment(int OrderId,string Type)
+        public IActionResult Payment(OrderMaster O)
         {
 
-            prod.Payment(OrderId,Type);
+            prod.Payment(O);
             return NoContent();
         }
         [HttpGet("Online{OrderId}")]

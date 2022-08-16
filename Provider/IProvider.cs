@@ -18,7 +18,8 @@ namespace APIProject.Provider
         public void EmptyList(int UserId);
         public List<OrderDetails> OrderDetails();
         public OrderMaster Buy(int UserId);
-        public void Payment(int OrderId, string Type);
+        //public void Payment(int OrderId, string Type);
+        public void Payment(OrderMaster O);
         public OrderMaster Online(int OrderId);
         public void Online(int OrderId,  string BankName, int CardNo, int ccv);
         public OrderMaster Offline(int OrderId);

@@ -143,10 +143,16 @@ namespace APIProject.Provider
             return C;
         }
 
-        public void Payment(int OrderId, string Type)
+        //public void Payment(int OrderId, string Type)
+        //{
+        //    var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
+        //    result.Type = Type;
+        //    fd.SaveChanges();
+        //}
+        public void Payment(OrderMaster o)
         {
-            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
-            result.Type = Type;
+            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == o.OrderId);
+            result.Type = o.Type;
             fd.SaveChanges();
         }
 
