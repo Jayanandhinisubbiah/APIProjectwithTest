@@ -6,12 +6,12 @@ namespace APIProject.Provider
 {
     public class FoodProvider : IProvider
     {
-       
+
 
         private readonly FoodContext fd;
         public FoodProvider(FoodContext fd)
         {
-            this.fd=fd;
+            this.fd = fd;
         }
 
         public UserList AddNewUser(UserList U)
@@ -64,8 +64,8 @@ namespace APIProject.Provider
 
         public Cart Delete(int CartId)
         {
-            return  (fd.Cart.FirstOrDefault(m => m.CartId == CartId));
-            
+            return (fd.Cart.FirstOrDefault(m => m.CartId == CartId));
+
         }
 
         public void DeleteConfirmed(int CartId)
@@ -116,11 +116,11 @@ namespace APIProject.Provider
             return result;
 
         }
-    
+
 
         public OrderMaster Offline(int OrderId)
         {
-             var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
+            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
             return result;
         }
 
@@ -141,7 +141,7 @@ namespace APIProject.Provider
 
         public List<OrderDetails> OrderDetails()
         {
-           var C=fd.OrderDetails.ToList();
+            var C = fd.OrderDetails.ToList();
             return C;
         }
 
@@ -160,21 +160,25 @@ namespace APIProject.Provider
 
         public void ViewCart(int? UserId)
         {
-            var c = (from i in fd.Cart
-                     where i.UserId == UserId
-                     select i.FoodId).SingleOrDefault();
 
-            var F = fd.Food.FirstOrDefault(i => i.FoodId == c);
             List<Cart> list = (from i in fd.Cart
                                where i.UserId == UserId
                                select i).ToList();
             OrderMaster orderMaster = new OrderMaster();
+
+
             orderMaster.UserId = UserId;
             fd.Add(orderMaster);
             fd.SaveChanges();
+
+           
             List<OrderDetails> orderDetails = new List<OrderDetails>();
             foreach (var item in list)
             {
+                
+                var F = fd.Food.SingleOrDefault(i => i.FoodId == item.FoodId);
+                
+
                 OrderDetails od = new OrderDetails();
                 od.OrderId = orderMaster.OrderId;
                 od.FoodId = item.FoodId;
@@ -184,11 +188,11 @@ namespace APIProject.Provider
                 fd.OrderDetails.Add(od);
                 fd.SaveChanges();
 
+
             }
             orderDetails.AddRange(fd.OrderDetails);
             orderMaster.TotalPrice = orderDetails.Sum(i => i.TotalPrice);
             fd.SaveChanges();
-            
         }
         public Food AddNewFood(Food food)
         {
@@ -196,8 +200,14 @@ namespace APIProject.Provider
             fd.SaveChanges();
             return food;
         }
-
-
-
     }
 }
+
+
+
+
+
+
+
+
+

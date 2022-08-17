@@ -12,7 +12,7 @@ namespace APIProject.Models
 
         public int FoodId { get; set; }
         public int Qnt { get; set; }
-        public virtual UserList? User { get; set; }
+        public virtual ICollection<UserList>? User { get; set; }
         public virtual Food? Food { get; set; }
 
        
