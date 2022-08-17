@@ -12,7 +12,7 @@ namespace APIProject.Provider
         public Cart AddtoCart(Cart C);
         //public Cart AddtoCart(Cart C);
         public List<Cart> GetCartById(int UserId);
-        public void ViewCart(int UserId);
+        public void ViewCart(int? UserId);
         public Cart Delete(int CartId);
         public void DeleteConfirmed(int CartId);
         public void EmptyList(int UserId);
@@ -23,6 +23,7 @@ namespace APIProject.Provider
         public OrderMaster Online(int OrderId);
         public void Online(int OrderId,  string BankName, int CardNo, int ccv);
         public OrderMaster Offline(int OrderId);
+        public Food AddNewFood(Food food);
 
 
 

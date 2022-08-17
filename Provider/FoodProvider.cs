@@ -149,14 +149,14 @@ namespace APIProject.Provider
         //    result.Type = Type;
         //    fd.SaveChanges();
         //}
-        public void Payment(OrderMaster o)
+        public void Payment(OrderMaster O)
         {
-            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == o.OrderId);
-            result.Type = o.Type;
+            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == O.OrderId);
+            result.Type = O.Type;
             fd.SaveChanges();
         }
 
-        public void ViewCart(int UserId)
+        public void ViewCart(int? UserId)
         {
             var c = (from i in fd.Cart
                      where i.UserId == UserId
@@ -188,7 +188,12 @@ namespace APIProject.Provider
             fd.SaveChanges();
             
         }
-
+        public Food AddNewFood(Food food)
+        {
+            fd.Add(food);
+            fd.SaveChanges();
+            return food;
+        }
 
 
 

@@ -197,7 +197,7 @@ namespace APIProject.Controllers
             return prod.Buy(UserId);
         }
         //[HttpPut("Payment{OrderId}")]
-        [HttpPut("Payment")]
+        [HttpPost("Payment")]
 
         public IActionResult Payment(OrderMaster O)
         {

@@ -4,6 +4,7 @@ using APIProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIProject.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    partial class FoodContextModelSnapshot : ModelSnapshot
+    [Migration("20220816152346_migr16")]
+    partial class migr16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +38,7 @@ namespace APIProject.Migrations
                     b.Property<int>("Qnt")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("CartId");
@@ -44,8 +46,7 @@ namespace APIProject.Migrations
                     b.HasIndex("FoodId");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Cart");
                 });
@@ -205,7 +206,9 @@ namespace APIProject.Migrations
 
                     b.HasOne("APIProject.Models.UserList", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("APIProject.Models.Cart", "UserId");
+                        .HasForeignKey("APIProject.Models.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Food");
 

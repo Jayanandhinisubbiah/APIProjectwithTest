@@ -11,6 +11,6 @@ namespace APIProject.Models
         public float price { get; set; }
         public string Image { get; set; }
         public string Detail { get; set; }
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<OrderDetails>? OrderDetails { get; set; }
     }
 }

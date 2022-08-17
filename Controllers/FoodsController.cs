@@ -80,18 +80,13 @@ namespace APIProject.Controllers
 
         // POST: api/Foods
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Food>> PostFood(Food food)
-        //{
-        //  if (_context.Food == null)
-        //  {
-        //      return Problem("Entity set 'FoodContext.Food'  is null.");
-        //  }
-        //    _context.Food.Add(food);
-        //    await _context.SaveChangesAsync();
+        [HttpPost]
+        public async Task<ActionResult<Food>> PostFood(Food food)
+        {
 
-        //    return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
-        //}
+            prod.AddNewFood(food);
+            return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+        }
 
         // DELETE: api/Foods/5
         //    [HttpDelete("{id}")]

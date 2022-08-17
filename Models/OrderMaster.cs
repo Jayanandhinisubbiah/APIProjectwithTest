@@ -13,7 +13,7 @@ namespace APIProject.Models
         public string? BankName { get; set; }
         public int? CardNo { get; set; }
         public int? CCV { get; set; }
-        public virtual UserList User { get; set; }
+        public virtual UserList? User { get; set; }
         public virtual ICollection<OrderDetails>? OrderDetails { get; set; }
 
     }

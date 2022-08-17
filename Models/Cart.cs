@@ -7,7 +7,7 @@ namespace APIProject.Models
         [Key]
         public int CartId { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
 
         public int FoodId { get; set; }
