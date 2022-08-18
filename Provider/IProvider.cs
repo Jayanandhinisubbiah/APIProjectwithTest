@@ -5,6 +5,8 @@ namespace APIProject.Provider
     public interface IProvider
     {
         public UserList AddNewUser(UserList U);
+        public void Edit(int CartId, Cart C);
+        public void DeleteCart(int CartId);
         public UserList Login(UserList U);
         public List<Food> GetAll();
         public Food GetFoodById(int? id);
@@ -25,6 +27,7 @@ namespace APIProject.Provider
         public OrderMaster Offline(int OrderId);
         public Food AddNewFood(Food food);
 
+        public Cart GetCartByCartId(int CartId);
 
 
     }

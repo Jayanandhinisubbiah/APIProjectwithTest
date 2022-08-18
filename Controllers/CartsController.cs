@@ -227,5 +227,29 @@ namespace APIProject.Controllers
 
             return prod.Offline(OrderId);
         }
+        [HttpGet("EditCart{CartId}")]
+        public ActionResult<Cart> EditCart(int CartId)
+        {
+
+            return prod.GetCartByCartId(CartId);
+        }
+        [HttpPut("Edit{CartId}")]
+        public IActionResult Edit(int CartId,Cart C)
+        {
+            prod.Edit(CartId,C);
+            return NoContent();
+        }
+        [HttpGet("DCart{CartId}")]
+        public ActionResult<Cart> DeleteCart(int CartId)
+        {
+
+            return prod.GetCartByCartId(CartId);
+        }
+        [HttpDelete("Delete{CartId}")]
+        public IActionResult DeleteCartConfirmed(int CartId)
+        {
+            prod.DeleteCart(CartId);
+            return NoContent();
+        }
     }
 }

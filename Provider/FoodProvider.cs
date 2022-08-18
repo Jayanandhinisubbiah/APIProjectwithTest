@@ -200,6 +200,30 @@ namespace APIProject.Provider
             fd.SaveChanges();
             return food;
         }
+
+        public void Edit(int CartId, Cart C)
+        {
+           //s.CurrentBalance = Convert.ToInt32(HttpContext.Session.GetString("CurrentBalance"));
+
+
+           // db.Newaccounts.Update(s);
+
+           // db.SaveChanges();
+            fd.Cart.Update(C);
+            fd.SaveChanges();
+        }
+
+        public Cart GetCartByCartId(int CartId)
+        {
+            return (fd.Cart.Find(CartId));
+        }
+
+        public void DeleteCart(int CartId)
+        {
+            Cart c = fd.Cart.Find(CartId);
+            fd.Remove(c);
+            fd.SaveChanges();
+        }
     }
 }
 
