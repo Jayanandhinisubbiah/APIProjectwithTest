@@ -196,37 +196,31 @@ namespace APIProject.Controllers
 
             return prod.Buy(UserId);
         }
-        //[HttpPut("Payment{OrderId}")]
-        [HttpPost("Payment")]
+        [HttpPut("Payment{OrderId}")]
+        //[HttpPost("Payment")]
 
-        public IActionResult Payment(OrderMaster O)
+        public ActionResult<OrderMaster> Payment(int OrderId,OrderMaster O)
         {
 
-            prod.Payment(O);
+             return prod.Payment(OrderId,O.Type);
+            
+        }
+        [HttpGet("On{OrderId}")]
+
+        public ActionResult<OrderMaster> On(int OrderId)
+        {
+
+            return prod.Pay(OrderId);
+        }
+        [HttpPut("On{OrderId}")]
+
+        public IActionResult On(int OrderId,OrderMaster O)
+        {
+
+            prod.Pay(OrderId, O);
             return NoContent();
         }
-        [HttpGet("Online{OrderId}")]
-
-        public ActionResult<OrderMaster> Online(int OrderId)
-        {
-
-            return prod.Online(OrderId);
-        }
-        [HttpPut("Online{OrderId}")]
-
-        public IActionResult Online(int OrderId, string BankName,int CardNo,int ccv)
-        {
-
-            prod.Online(OrderId, BankName, CardNo, ccv);
-            return NoContent();
-        }
-        [HttpGet("Offline{OrderId}")]
-
-        public ActionResult<OrderMaster> Offline(int OrderId)
-        {
-
-            return prod.Offline(OrderId);
-        }
+       
         [HttpGet("EditCart{CartId}")]
         public ActionResult<Cart> EditCart(int CartId)
         {
@@ -251,5 +245,6 @@ namespace APIProject.Controllers
             prod.DeleteCart(CartId);
             return NoContent();
         }
+      
     }
 }

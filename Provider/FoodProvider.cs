@@ -118,27 +118,21 @@ namespace APIProject.Provider
         }
 
 
-        public OrderMaster Offline(int OrderId)
+        public OrderMaster Pay(int OrderId)
         {
             var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
             return result;
         }
 
-        public OrderMaster Online(int OrderId)
+       
+        public void Pay(int OrderId, OrderMaster O)
         {
             var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
-            return result;
-        }
-
-        public void Online(int OrderId, string BankName, int CardNo, int ccv)
-        {
-            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
-            result.BankName = BankName;
-            result.CardNo = CardNo;
-            result.CCV = ccv;
+            result.BankName = O.BankName;
+            result.CardNo = O.CardNo;
+            result.CCV = O.CCV;
             fd.SaveChanges();
         }
-
         public List<OrderDetails> OrderDetails()
         {
             var C = fd.OrderDetails.ToList();
@@ -151,11 +145,12 @@ namespace APIProject.Provider
         //    result.Type = Type;
         //    fd.SaveChanges();
         //}
-        public void Payment(OrderMaster O)
+        public OrderMaster Payment(int OrderId,string Type)
         {
-            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == O.OrderId);
-            result.Type = O.Type;
+            var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
+            result.Type = Type;
             fd.SaveChanges();
+            return result;
         }
 
         public void ViewCart(int? UserId)
@@ -203,12 +198,6 @@ namespace APIProject.Provider
 
         public void Edit(int CartId, Cart C)
         {
-           //s.CurrentBalance = Convert.ToInt32(HttpContext.Session.GetString("CurrentBalance"));
-
-
-           // db.Newaccounts.Update(s);
-
-           // db.SaveChanges();
             fd.Cart.Update(C);
             fd.SaveChanges();
         }
@@ -221,6 +210,39 @@ namespace APIProject.Provider
         public void DeleteCart(int CartId)
         {
             Cart c = fd.Cart.Find(CartId);
+            fd.Remove(c);
+            fd.SaveChanges();
+        }
+
+        public void EditFood(int id, Food food)
+        {
+            //if (id != food.FoodId)
+            //{
+            //    return BadRequest();
+            //}
+
+            //fd.Entry(food).State = EntityState.Modified;
+            fd.Update(food);
+
+            //try
+            //{
+                 fd.SaveChanges();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!FoodExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+        }
+        public void DeleteFood(int FoodId)
+        {
+            Food c = fd.Food.Find(FoodId);
             fd.Remove(c);
             fd.SaveChanges();
         }

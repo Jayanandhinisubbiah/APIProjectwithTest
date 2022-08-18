@@ -29,54 +29,53 @@ namespace APIProject.Controllers
             return prod.GetAll();
         }
 
-        // GET: api/Foods/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Food>> GetFood(int id)
-        //{
-        //  if (_context.Food == null)
-        //  {
-        //      return NotFound();
-        //  }
-        //    var food = await _context.Food.FindAsync(id);
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Food>> GetFood(int id)
+        {
+            //if (_context.Food == null)
+            //{
+            //    return NotFound();
+            //}
+            //var food = await _context.Food.FindAsync(id);
 
-        //    if (food == null)
-        //    {
-        //        return NotFound();
-        //    }
+            //if (food == null)
+            //{
+            //    return NotFound();
+            //}
 
-        //    return food;
-        //}
+            //return food;
+            return prod.GetFoodById(id);
 
-        // PUT: api/Foods/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutFood(int id, Food food)
-        //{
-        //    if (id != food.FoodId)
-        //    {
-        //        return BadRequest();
-        //    }
+        }
 
-        //    _context.Entry(food).State = EntityState.Modified;
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditFood(int id, Food food)
+        {
+            //if (id != food.FoodId)
+            //{
+            //    return BadRequest();
+            //}
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!FoodExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            //_context.Entry(food).State = EntityState.Modified;
 
-        //    return NoContent();
-        //}
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //if (!FoodExists(id))
+            //{
+            //    return NotFound();
+            //}
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+            prod.EditFood(id, food);
+            return NoContent();
+        }
 
         // POST: api/Foods
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -88,25 +87,25 @@ namespace APIProject.Controllers
             return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
         }
 
-        // DELETE: api/Foods/5
-        //    [HttpDelete("{id}")]
-        //    public async Task<IActionResult> DeleteFood(int id)
-        //    {
-        //        if (_context.Food == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        var food = await _context.Food.FindAsync(id);
-        //        if (food == null)
-        //        {
-        //            return NotFound();
-        //        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFood(int id,Food food)
+        {
+            //        if (_context.Food == null)
+            //        {
+            //            return NotFound();
+            //        }
+            //        var food = await _context.Food.FindAsync(id);
+            //        if (food == null)
+            //        {
+            //            return NotFound();
+            //        }
 
-        //        _context.Food.Remove(food);
-        //        await _context.SaveChangesAsync();
+            //        _context.Food.Remove(food);
+            //        await _context.SaveChangesAsync();
+            prod.DeleteFood(id);
 
-        //        return NoContent();
-        //    }
+            return NoContent();
+        }
 
         //    private bool FoodExists(int id)
         //    {
