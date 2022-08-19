@@ -31,6 +31,8 @@ namespace APIProject.Provider
         public Cart GetCartByCartId(int CartId);
 
         public void DeleteFood(int FoodId);
+        public List<UserList> UserDetails();
 
+        public List<Content> GetReportById(int? UserId);
     }
 }

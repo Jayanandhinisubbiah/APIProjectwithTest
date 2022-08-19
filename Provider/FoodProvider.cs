@@ -124,7 +124,7 @@ namespace APIProject.Provider
             return result;
         }
 
-       
+
         public void Pay(int OrderId, OrderMaster O)
         {
             var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
@@ -145,7 +145,7 @@ namespace APIProject.Provider
         //    result.Type = Type;
         //    fd.SaveChanges();
         //}
-        public OrderMaster Payment(int OrderId,string Type)
+        public OrderMaster Payment(int OrderId, string Type)
         {
             var result = fd.OrderMaster.SingleOrDefault(m => m.OrderId == OrderId);
             result.Type = Type;
@@ -166,13 +166,13 @@ namespace APIProject.Provider
             fd.Add(orderMaster);
             fd.SaveChanges();
 
-           
+
             List<OrderDetails> orderDetails = new List<OrderDetails>();
             foreach (var item in list)
             {
-                
+
                 var F = fd.Food.SingleOrDefault(i => i.FoodId == item.FoodId);
-                
+
 
                 OrderDetails od = new OrderDetails();
                 od.OrderId = orderMaster.OrderId;
@@ -226,7 +226,7 @@ namespace APIProject.Provider
 
             //try
             //{
-                 fd.SaveChanges();
+            fd.SaveChanges();
             //}
             //catch (DbUpdateConcurrencyException)
             //{
@@ -246,8 +246,66 @@ namespace APIProject.Provider
             fd.Remove(c);
             fd.SaveChanges();
         }
+        public List<UserList> UserDetails()
+        {
+            var C = (from i in fd.UserList
+                     where i.Role == "User"
+                     select i).ToList();
+            return C;
+        }
+
+        public List<Content> GetReportById(int? UserId)
+        {
+            
+            var O = (from i in fd.OrderMaster
+                     where i.UserId == UserId
+                     select i).ToList();
+            List<Content> ct = new List<Content>();
+            foreach (var k in O)
+            {
+                List<OrderDetails> list =
+                (from i in fd.OrderDetails
+                 where i.OrderId == k.OrderId
+                 select i).ToList();
+                //}
+                //Content content = new Content();
+               
+                foreach (var item in list)
+                {
+
+                    var T = fd.Food.SingleOrDefault(i => i.FoodId == item.FoodId);
+                    var Y = fd.OrderDetails.SingleOrDefault(i => i.FoodId == item.FoodId);
+                    var F = fd.UserList.Find(UserId);
+
+                    Content od = new Content();
+
+
+                    od.Email = F.Email;
+
+                    od.FoodName = T.FoodName;
+                    od.Image = T.Image;
+                    od.Qnt = Y.Qnt;
+                    od.Price = Y.Price;
+
+                    od.TotalPrice = Y.TotalPrice;
+                    fd.SaveChanges();
+                    ct.Add(od);
+                };
+               
+            }
+
+            fd.SaveChanges();
+
+
+            return ct;
+
+        }
+
+          }
     }
-}
+
+
+
 
 
 
