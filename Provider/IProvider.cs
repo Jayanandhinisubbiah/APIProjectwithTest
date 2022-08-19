@@ -34,5 +34,7 @@ namespace APIProject.Provider
         public List<UserList> UserDetails();
 
         public List<Content> GetReportById(int? UserId);
+        public List<NewOrder> ViewNewOrder();
+
     }
 }

@@ -256,7 +256,7 @@ namespace APIProject.Provider
 
         public List<Content> GetReportById(int? UserId)
         {
-            
+
             var O = (from i in fd.OrderMaster
                      where i.UserId == UserId
                      select i).ToList();
@@ -269,7 +269,7 @@ namespace APIProject.Provider
                  select i).ToList();
                 //}
                 //Content content = new Content();
-               
+
                 foreach (var item in list)
                 {
 
@@ -291,7 +291,7 @@ namespace APIProject.Provider
                     fd.SaveChanges();
                     ct.Add(od);
                 };
-               
+
             }
 
             fd.SaveChanges();
@@ -301,8 +301,49 @@ namespace APIProject.Provider
 
         }
 
-          }
+        public List<NewOrder> ViewNewOrder()
+        {
+            List<OrderDetails> list = fd.OrderDetails.ToList();
+
+            List<NewOrder> ct = new List<NewOrder>();
+
+
+            foreach (var item in list)
+            {
+
+                var T = fd.Food.SingleOrDefault(i => i.FoodId == item.FoodId);
+                var Y = fd.OrderDetails.SingleOrDefault(i => i.FoodId == item.FoodId);
+                //var F=(from i in fd.OrderMaster
+                //      where i.OrderId==item.OrderId
+                //      select i.User.Email);
+                var F = fd.OrderMaster.SingleOrDefault(i => i.OrderId == item.OrderId);
+                var L = fd.UserList.Find(F.UserId);
+                NewOrder od = new NewOrder();
+
+                od.count = Y.Id;
+                od.Email = L.Email;
+
+                od.FoodName = T.FoodName;
+                od.Image = T.Image;
+                od.Qnt = Y.Qnt;
+                od.Price = Y.Price;
+
+                od.TotalPrice = Y.TotalPrice;
+                fd.SaveChanges();
+                ct.Add(od);
+            };
+
+
+
+            fd.SaveChanges();
+
+
+            return ct;
+
+        }
     }
+}
+    
 
 
 

@@ -111,5 +111,12 @@ namespace APIProject.Controllers
         //    {
         //        return (_context.Food?.Any(e => e.FoodId == id)).GetValueOrDefault();
         //    }
+        [HttpGet("NewOrder")]
+
+        public ActionResult<List<NewOrder>> NewOrder()
+        {
+
+            return prod.ViewNewOrder();
+        }
     }
 }
