@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using APIProject.Data;
 using APIProject.Models;
 using APIProject.Provider;
+using APIProject.ViewModels;
 
 namespace APIProject.Controllers
 {

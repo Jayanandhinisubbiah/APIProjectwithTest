@@ -1,5 +1,6 @@
 ﻿using APIProject.Data;
 using APIProject.Models;
+using APIProject.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace APIProject.Provider
