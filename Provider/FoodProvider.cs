@@ -307,8 +307,13 @@ namespace APIProject.Provider
 
             List<NewOrder> ct = new List<NewOrder>();
 
+            //od.count = list.Count;
 
-            foreach (var item in list)
+            //for (int i=1;i<=list.Count;i++)
+            //{
+            //    od.count = i;
+            //}
+                foreach (var item in list)
             {
 
                 var T = fd.Food.SingleOrDefault(i => i.FoodId == item.FoodId);
@@ -320,7 +325,8 @@ namespace APIProject.Provider
                 var L = fd.UserList.Find(F.UserId);
                 NewOrder od = new NewOrder();
 
-                od.count = list.Count;
+                //od.count=od.count+1;
+
                 od.Email = L.Email;
                 od.OrderId=item.OrderId;
                 od.FoodName = T.FoodName;
@@ -332,6 +338,7 @@ namespace APIProject.Provider
                 fd.NewOrder.Add(od);
                 fd.SaveChanges();
             };
+            
             ct.AddRange(fd.NewOrder);
 
 
@@ -346,7 +353,7 @@ namespace APIProject.Provider
         {
             NewOrder c = fd.NewOrder.Find(Id);
             fd.NewOrder.Remove(c);
-            c.count--;
+            //c.count--;
 
             fd.SaveChanges();
         }
@@ -366,8 +373,13 @@ namespace APIProject.Provider
                                        select i).ToList();
             foreach (var item in list)
             {
-                var val = fd.OrderDetails.Find(item.OrderId);
-                fd.OrderDetails.Remove(val);
+                var val = (from i in fd.OrderDetails
+                           where i.OrderId == item.OrderId
+                           select i).ToList();
+                foreach(var i in val)
+                {
+                    fd.OrderDetails.Remove(i);
+                }
                 fd.SaveChanges();
             }
             foreach (var item in list2)

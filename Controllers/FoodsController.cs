@@ -88,7 +88,7 @@ namespace APIProject.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFood(int id,Food food)
+        public async Task<IActionResult> DeleteFood(int id)
         {
             //        if (_context.Food == null)
             //        {
