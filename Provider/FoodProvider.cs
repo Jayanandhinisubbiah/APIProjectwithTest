@@ -320,18 +320,19 @@ namespace APIProject.Provider
                 var L = fd.UserList.Find(F.UserId);
                 NewOrder od = new NewOrder();
 
-                od.count = Y.Id;
+                od.count = list.Count;
                 od.Email = L.Email;
-
+                od.OrderId=item.OrderId;
                 od.FoodName = T.FoodName;
                 od.Image = T.Image;
                 od.Qnt = Y.Qnt;
                 od.Price = Y.Price;
 
                 od.TotalPrice = Y.TotalPrice;
+                fd.NewOrder.Add(od);
                 fd.SaveChanges();
-                ct.Add(od);
             };
+            ct.AddRange(fd.NewOrder);
 
 
 
@@ -341,6 +342,42 @@ namespace APIProject.Provider
             return ct;
 
         }
+        public void DispatchOrder(int Id)
+        {
+            NewOrder c = fd.NewOrder.Find(Id);
+            fd.NewOrder.Remove(c);
+            c.count--;
+
+            fd.SaveChanges();
+        }
+
+        public NewOrder DispatchNewOrder(int Id)
+        {
+            return (fd.NewOrder.FirstOrDefault(m => m.Id ==Id));
+
+        }
+        public void EmptyOrder(int OrderId)
+        {
+            List<OrderDetails> list = (from i in fd.OrderDetails
+                               where i.OrderId == OrderId
+                               select i).ToList();
+            List<OrderMaster> list2 = (from i in fd.OrderMaster
+                                       where i.OrderId == OrderId
+                                       select i).ToList();
+            foreach (var item in list)
+            {
+                var val = fd.OrderDetails.Find(item.OrderId);
+                fd.OrderDetails.Remove(val);
+                fd.SaveChanges();
+            }
+            foreach (var item in list2)
+            {
+                var val = fd.OrderMaster.Find(item.OrderId);
+                fd.OrderMaster.Remove(val);
+                fd.SaveChanges();
+            }
+        }
+
     }
 }
     

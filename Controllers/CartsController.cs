@@ -245,6 +245,7 @@ namespace APIProject.Controllers
             prod.DeleteCart(CartId);
             return NoContent();
         }
-      
+       
+
     }
 }

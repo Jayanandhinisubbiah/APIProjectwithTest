@@ -24,6 +24,7 @@ namespace APIProject.Data
         public DbSet<APIProject.Models.Cart>? Cart { get; set; }
         public DbSet<APIProject.Models.OrderDetails>? OrderDetails { get; set; }
         public DbSet<APIProject.Models.OrderMaster>? OrderMaster { get; set; }
+        public DbSet<APIProject.Models.NewOrder>? NewOrder { get; set; }
 
 
     }

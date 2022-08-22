@@ -1,7 +1,13 @@
-﻿namespace APIProject.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace APIProject.Models
 {
     public class NewOrder
     {
+        [Key]
+        public int Id { get; set; }
+        public int OrderId { get; set; }
+
         public int count { get; set; }
         public string Email { get; set; }
         //public UserList user { get; set; }
@@ -11,6 +17,6 @@
         public float Price { get; set; }
         public int Qnt { get; set; }
         public float TotalPrice { get; set; }
-        //public OrderDetails orderDetails { get; set; }
+        public virtual OrderDetails? OrderDetails { get; set; }
     }
 }

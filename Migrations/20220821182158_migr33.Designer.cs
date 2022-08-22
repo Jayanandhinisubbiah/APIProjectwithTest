@@ -4,6 +4,7 @@ using APIProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIProject.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    partial class FoodContextModelSnapshot : ModelSnapshot
+    [Migration("20220821182158_migr33")]
+    partial class migr33
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,12 +100,6 @@ namespace APIProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
@@ -117,8 +113,6 @@ namespace APIProject.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderDetailsId");
 
                     b.ToTable("NewOrder");
                 });
@@ -245,15 +239,6 @@ namespace APIProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Food");
-                });
-
-            modelBuilder.Entity("APIProject.Models.NewOrder", b =>
-                {
-                    b.HasOne("APIProject.Models.OrderDetails", "OrderDetails")
-                        .WithMany()
-                        .HasForeignKey("OrderDetailsId");
-
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("APIProject.Models.OrderDetails", b =>

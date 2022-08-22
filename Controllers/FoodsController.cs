@@ -118,5 +118,26 @@ namespace APIProject.Controllers
 
             return prod.ViewNewOrder();
         }
+        [HttpGet("DispatchNewOrder{Id}")]
+        public ActionResult<NewOrder> DispatchNewOrder(int Id)
+        {
+
+            return prod.DispatchNewOrder(Id);
+        }
+        [HttpDelete("DispatchOrder{Id}")]
+
+        public async Task<IActionResult> DispatchOrder(int Id)
+        {
+
+            prod.DispatchOrder(Id);
+            return NoContent();
+        }
+        [HttpDelete("EmptyOrder{OrderId}")]
+        public IActionResult EmptyOrder(int OrderId)
+        {
+            prod.EmptyOrder(OrderId);
+            return NoContent();
+        }
+
     }
 }
