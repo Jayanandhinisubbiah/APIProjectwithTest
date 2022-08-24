@@ -18,10 +18,10 @@ namespace APIProject.Provider
         public List<Cart> GetCartById(int UserId);
         public void ViewCart(int? UserId);
         public Cart Delete(int CartId);
-        public NewOrder DispatchNewOrder(int Id);
+        //public NewOrder DispatchNewOrder(int Id);
         public void DeleteConfirmed(int CartId);
         public void EmptyList(int UserId);
-        public void EmptyOrder(int OrderId);
+        //public void EmptyOrder(int OrderId);
 
         public List<OrderDetails> OrderDetails();
         public OrderMaster Buy(int UserId);
@@ -39,7 +39,7 @@ namespace APIProject.Provider
 
         public List<Content> GetReportById(int? UserId);
         public List<NewOrder> ViewNewOrder();
-        public void DispatchOrder(int Id);
+        //public void DispatchOrder(int Id);
 
 
     }

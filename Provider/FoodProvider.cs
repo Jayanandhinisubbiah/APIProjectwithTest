@@ -326,7 +326,6 @@ namespace APIProject.Provider
                 var L = fd.UserList.Find(F.UserId);
                 NewOrder od = new NewOrder();
 
-                //od.count=od.count+1;
 
                 od.Email = L.Email;
                 od.OrderId=item.OrderId;
@@ -334,7 +333,7 @@ namespace APIProject.Provider
                 od.Image = T.Image;
                 od.Qnt = Y.Qnt;
                 od.Price = Y.Price;
-
+                //od.status = "Dispatch";
                 od.TotalPrice = Y.TotalPrice;
                 fd.NewOrder.Add(od);
                 fd.SaveChanges();
@@ -350,46 +349,46 @@ namespace APIProject.Provider
             return ct;
 
         }
-        public void DispatchOrder(int Id)
-        {
-            NewOrder c = fd.NewOrder.Find(Id);
-            fd.NewOrder.Remove(c);
-            //c.count--;
+        //public void DispatchOrder(int Id)
+        //{
+        //    NewOrder c = fd.NewOrder.Find(Id);
+        //    fd.NewOrder.Remove(c);
+        //    //c.count--;
 
-            fd.SaveChanges();
-        }
+        //    fd.SaveChanges();
+        //}
 
-        public NewOrder DispatchNewOrder(int Id)
-        {
-            return (fd.NewOrder.FirstOrDefault(m => m.Id ==Id));
+        //public NewOrder DispatchNewOrder(int Id)
+        //{
+        //    return (fd.NewOrder.FirstOrDefault(m => m.Id ==Id));
 
-        }
-        public void EmptyOrder(int OrderId)
-        {
-            List<OrderDetails> list = (from i in fd.OrderDetails
-                               where i.OrderId == OrderId
-                               select i).ToList();
-            List<OrderMaster> list2 = (from i in fd.OrderMaster
-                                       where i.OrderId == OrderId
-                                       select i).ToList();
-            foreach (var item in list)
-            {
-                var val = (from i in fd.OrderDetails
-                           where i.OrderId == item.OrderId
-                           select i).ToList();
-                foreach(var i in val)
-                {
-                    fd.OrderDetails.Remove(i);
-                }
-                fd.SaveChanges();
-            }
-            foreach (var item in list2)
-            {
-                var val = fd.OrderMaster.Find(item.OrderId);
-                fd.OrderMaster.Remove(val);
-                fd.SaveChanges();
-            }
-        }
+        //}
+        //public void EmptyOrder(int OrderId)
+        //{
+        //    List<OrderDetails> list = (from i in fd.OrderDetails
+        //                       where i.OrderId == OrderId
+        //                       select i).ToList();
+        //    List<OrderMaster> list2 = (from i in fd.OrderMaster
+        //                               where i.OrderId == OrderId
+        //                               select i).ToList();
+        //    foreach (var item in list)
+        //    {
+        //        var val = (from i in fd.OrderDetails
+        //                   where i.OrderId == item.OrderId
+        //                   select i).ToList();
+        //        foreach(var i in val)
+        //        {
+        //            fd.OrderDetails.Remove(i);
+        //        }
+        //        fd.SaveChanges();
+        //    }
+        //    foreach (var item in list2)
+        //    {
+        //        var val = fd.OrderMaster.Find(item.OrderId);
+        //        fd.OrderMaster.Remove(val);
+        //        fd.SaveChanges();
+        //    }
+        //}
 
     }
 }

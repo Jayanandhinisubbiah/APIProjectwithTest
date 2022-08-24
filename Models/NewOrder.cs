@@ -17,6 +17,7 @@ namespace APIProject.Models
         public float Price { get; set; }
         public int Qnt { get; set; }
         public float TotalPrice { get; set; }
+        public string? status { get; set; }
         public virtual OrderDetails? OrderDetails { get; set; }
     }
 }
