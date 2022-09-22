@@ -11,8 +11,8 @@ namespace APIProject.Provider
 
         public void DeleteCart(int CartId);
         public UserList Login(UserList U);
-        public List<Food> GetAll();
-        public Food GetFoodById(int? id);
+        public  Task<List<Food>> GetAll();
+        public Task<Food> GetFoodById(int? id);
 
         public Cart AddtoCart(Cart C);
         public List<Cart> GetCartById(int UserId);
@@ -34,7 +34,7 @@ namespace APIProject.Provider
 
         public Cart GetCartByCartId(int CartId);
 
-        public void DeleteFood(int FoodId);
+        public Task<string> DeleteFood(int FoodId);
         public List<UserList> UserDetails();
 
         public List<Content> GetReportById(int? UserId);

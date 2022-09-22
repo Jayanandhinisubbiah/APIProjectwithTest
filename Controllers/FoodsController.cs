@@ -24,14 +24,15 @@ namespace APIProject.Controllers
 
         // GET: api/Foods
         [HttpGet]
-        public ActionResult<List<Food>> GetFood()
+        public async Task <ActionResult<List<Food>>> GetFood()
         {
-         
-            return prod.GetAll();
+
+            var response=await  prod.GetAll().ConfigureAwait(false);
+            return response != null ? Ok(response):NotFound();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Food>> GetFood(int id)
+        public async Task<ActionResult<Food>> GetFoodById(int id)
         {
             //if (_context.Food == null)
             //{
@@ -45,7 +46,12 @@ namespace APIProject.Controllers
             //}
 
             //return food;
-            return prod.GetFoodById(id);
+            if(id<=0)
+            {
+                return BadRequest();
+            }
+            var response = await prod.GetFoodById(id).ConfigureAwait(false);
+            return response!=null?Ok(response):NotFound();
 
         }
 
@@ -99,13 +105,18 @@ namespace APIProject.Controllers
             //        if (food == null)
             //        {
             //            return NotFound();
-            //        }
+            //        
 
             //        _context.Food.Remove(food);
             //        await _context.SaveChangesAsync();
-            prod.DeleteFood(id);
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+            var response =await prod.DeleteFood(id).ConfigureAwait(false);
+            return response!=null ? NotFound() :NoContent() ;
+           
 
-            return NoContent();
         }
 
         //    private bool FoodExists(int id)

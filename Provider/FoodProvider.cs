@@ -10,6 +10,7 @@ namespace APIProject.Provider
 
 
         private readonly FoodContext fd;
+        //public string SearchTerm { get; set; }
         public FoodProvider(FoodContext fd)
         {
             this.fd = fd;
@@ -89,9 +90,17 @@ namespace APIProject.Provider
             }
         }
 
-        public List<Food> GetAll()
+        public async Task<List<Food>> GetAll()
         {
-            return fd.Food.ToList();
+            //if (SearchText != "" && SearchText != null)
+            //{
+            //    return fd.Food.Where(P => P.FoodName.Contains(SearchText)).ToList();
+            //}
+            //else
+            //{
+                return await fd.Food.ToListAsync();
+            //}
+
         }
 
         public List<Cart> GetCartById(int UserId)
@@ -103,9 +112,9 @@ namespace APIProject.Provider
 
         }
 
-        public Food GetFoodById(int? id)
+        public async Task<Food> GetFoodById(int? id)
         {
-            return (fd.Food.Find(id));
+            return await fd.Food.FindAsync(id);
         }
 
         public UserList Login(UserList U)
@@ -241,11 +250,12 @@ namespace APIProject.Provider
             //    }
             //}
         }
-        public void DeleteFood(int FoodId)
+        public async Task<string> DeleteFood(int FoodId)
         {
             Food c = fd.Food.Find(FoodId);
-            fd.Remove(c);
-            fd.SaveChanges();
+             fd.Remove(c);
+            fd.SaveChangesAsync();
+            return null;
         }
         public List<UserList> UserDetails()
         {

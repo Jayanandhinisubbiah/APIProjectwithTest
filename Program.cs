@@ -3,10 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using APIProject.Data;
 using APIProject.Provider;
 using System.Text.Json.Serialization;
+using APIProject.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<FoodContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FoodContext") ?? throw new InvalidOperationException("Connection string 'FoodContext' not found.")));
+//builder.Services.AddDbContext<FoodContext>(options =>
+//    options.UseSqlServer(KeyVault.GetSecret("connectionstring1")));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
