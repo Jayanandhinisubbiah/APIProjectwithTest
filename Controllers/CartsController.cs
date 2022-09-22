@@ -122,10 +122,10 @@ namespace APIProject.Controllers
         //}
         #region
         [HttpGet("AddtoCart{id}")]
-        public ActionResult<Food> AddtoCart(int? id)
+        public async Task<ActionResult<Food>> AddtoCart(int? id)
         {
 
-            return prod.GetFoodById(id);
+            return await prod.GetFoodById(id);
         }
         #endregion
         //[HttpPost]

@@ -199,10 +199,10 @@ namespace APIProject.Provider
             orderMaster.TotalPrice = orderDetails.Sum(i => i.TotalPrice);
             fd.SaveChanges();
         }
-        public Food AddNewFood(Food food)
+        public async Task<Food> AddNewFood(Food food)
         {
             fd.Add(food);
-            fd.SaveChanges();
+            await fd.SaveChangesAsync();
             return food;
         }
 
@@ -224,7 +224,7 @@ namespace APIProject.Provider
             fd.SaveChanges();
         }
 
-        public void EditFood(int id, Food food)
+        public async Task<string> EditFood(int id, Food food)
         {
             //if (id != food.FoodId)
             //{
@@ -232,11 +232,11 @@ namespace APIProject.Provider
             //}
 
             //fd.Entry(food).State = EntityState.Modified;
-            fd.Update(food);
+             fd.Update(food);
 
             //try
             //{
-            fd.SaveChanges();
+            await fd.SaveChangesAsync();
             //}
             //catch (DbUpdateConcurrencyException)
             //{
@@ -249,12 +249,13 @@ namespace APIProject.Provider
             //        throw;
             //    }
             //}
+            return null;
         }
         public async Task<string> DeleteFood(int FoodId)
         {
             Food c = fd.Food.Find(FoodId);
              fd.Remove(c);
-            fd.SaveChangesAsync();
+            await fd.SaveChangesAsync();
             return null;
         }
         public List<UserList> UserDetails()
@@ -312,7 +313,7 @@ namespace APIProject.Provider
 
         }
 
-        public List<NewOrder> ViewNewOrder()
+        public async Task<List<NewOrder>> ViewNewOrder()
         {
             List<OrderDetails> list = fd.OrderDetails.ToList();
 
@@ -353,24 +354,25 @@ namespace APIProject.Provider
 
 
 
-            fd.SaveChanges();
+            await fd.SaveChangesAsync();
 
 
             return ct;
 
         }
-        public void DispatchOrder(int Id)
+        public async Task<string> DispatchOrder(int Id)
         {
             NewOrder c = fd.NewOrder.Find(Id);
             fd.NewOrder.Remove(c);
             //c.count--;
 
-            fd.SaveChanges();
+            await fd.SaveChangesAsync();
+            return null;
         }
 
-        public NewOrder DispatchNewOrder(int Id)
+        public async Task<NewOrder> DispatchNewOrder(int Id)
         {
-            return (fd.NewOrder.FirstOrDefault(m => m.Id == Id));
+            return await fd.NewOrder.FirstOrDefaultAsync(m => m.Id == Id);
 
         }
         public void EmptyOrder(int OrderId)

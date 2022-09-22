@@ -7,7 +7,7 @@ namespace APIProject.Provider
     {
         public UserList AddNewUser(UserList U);
         public void Edit(int CartId, Cart C);
-        public void EditFood(int Id, Food C);
+        public Task<string> EditFood(int Id, Food C);
 
         public void DeleteCart(int CartId);
         public UserList Login(UserList U);
@@ -18,7 +18,7 @@ namespace APIProject.Provider
         public List<Cart> GetCartById(int UserId);
         public void ViewCart(int? UserId);
         public Cart Delete(int CartId);
-        public NewOrder DispatchNewOrder(int Id);
+        public Task<NewOrder> DispatchNewOrder(int Id);
         public void DeleteConfirmed(int CartId);
         public void EmptyList(int UserId);
         public void EmptyOrder(int OrderId);
@@ -30,7 +30,7 @@ namespace APIProject.Provider
         public void Pay(int OrderId, OrderMaster O);
 
         public OrderMaster Pay(int OrderId);
-        public Food AddNewFood(Food food);
+        public Task<Food> AddNewFood(Food food);
 
         public Cart GetCartByCartId(int CartId);
 
@@ -38,8 +38,8 @@ namespace APIProject.Provider
         public List<UserList> UserDetails();
 
         public List<Content> GetReportById(int? UserId);
-        public List<NewOrder> ViewNewOrder();
-        public void DispatchOrder(int Id);
+        public Task<List<NewOrder>> ViewNewOrder();
+        public Task<string> DispatchOrder(int Id);
 
 
     }

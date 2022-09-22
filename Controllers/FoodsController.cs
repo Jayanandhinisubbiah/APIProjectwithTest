@@ -80,8 +80,12 @@ namespace APIProject.Controllers
             //        throw;
             //    }
             //}
-            prod.EditFood(id, food);
-            return NoContent();
+            if(!ModelState.IsValid||id<=0)
+            {
+                return BadRequest();
+            }
+            var response=await prod.EditFood(id, food).ConfigureAwait(false);
+            return response!=null?Ok(response):NotFound();
         }
 
         // POST: api/Foods
@@ -89,8 +93,11 @@ namespace APIProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Food>> PostFood(Food food)
         {
-
-            prod.AddNewFood(food);
+            if (!ModelState.IsValid )
+            {
+                return BadRequest();
+            }
+            var response=await prod.AddNewFood(food).ConfigureAwait(false);
             return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
         }
 
@@ -125,24 +132,32 @@ namespace APIProject.Controllers
         //    }
         [HttpGet("NewOrder")]
 
-        public ActionResult<List<NewOrder>> NewOrder()
+        public async Task<ActionResult<List<NewOrder>>> NewOrder()
         {
-
-            return prod.ViewNewOrder();
+            var response = await prod.ViewNewOrder().ConfigureAwait(false);
+            return response != null ? Ok(response) : NotFound();
         }
         [HttpGet("DispatchNewOrder{Id}")]
-        public ActionResult<NewOrder> DispatchNewOrder(int Id)
+        public async Task<ActionResult<NewOrder>> DispatchNewOrder(int Id)
         {
-
-            return prod.DispatchNewOrder(Id);
+            if (Id <= 0)
+            {
+                return BadRequest();
+            }
+            var response = await prod.DispatchNewOrder(Id).ConfigureAwait(false);
+            return response != null ? Ok(response) : NotFound();
         }
         [HttpDelete("DispatchOrder{Id}")]
 
         public async Task<IActionResult> DispatchOrder(int Id)
         {
-
-            prod.DispatchOrder(Id);
-            return NoContent();
+            if (Id <= 0)
+            {
+                return BadRequest();
+            }
+            var response = await prod.DispatchOrder(Id).ConfigureAwait(false);
+            return response != null ? NotFound() : NoContent();
+            
         }
         [HttpDelete("EmptyOrder{OrderId}")]
         public IActionResult EmptyOrder(int OrderId)
